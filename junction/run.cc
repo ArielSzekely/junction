@@ -7,7 +7,7 @@
 #include "junction/bindings/runtime.h"
 #include "junction/junction.h"
 #include "junction/kernel/exec.h"
-#include "junction/snapshot/snapshot.h"
+//#include "junction/snapshot/snapshot.h"
 
 namespace junction {
 
@@ -114,12 +114,12 @@ void JunctionMain(int argc, char *argv[]) {
     }
     LOG(INFO) << "snapshot: restoring from snapshot (elf=" << args[1]
               << ", metadata=" << args[0] << ")";
-    proc = RestoreProcess(args[0], args[1]);
-    if (!proc) {
-      LOG(ERR) << "Failed to restore proc";
-      syscall_exit(-1);
-    }
-    LOG(INFO) << "snapshot: restored process with pid=" << (*proc)->get_pid();
+//    proc = RestoreProcess(args[0], args[1]);
+//    if (!proc) {
+//      LOG(ERR) << "Failed to restore proc";
+//      syscall_exit(-1);
+//    }
+//    LOG(INFO) << "snapshot: restored process with pid=" << (*proc)->get_pid();
     rt::WaitForever();
   }
 
@@ -140,13 +140,13 @@ void JunctionMain(int argc, char *argv[]) {
           std::string(GetCfg().get_snapshot_prefix()) + ".metadata";
       std::string epath = std::string(GetCfg().get_snapshot_prefix()) + ".elf";
 
-      auto ret = SnapshotPid(1, mtpath, epath);
-      if (!ret) {
-        LOG(ERR) << "Failed to snapshot: " << ret.error();
-        syscall_exit(-1);
-      } else {
-        LOG(INFO) << "snapshot successful!";
-      }
+//      auto ret = SnapshotPid(1, mtpath, epath);
+//      if (!ret) {
+//        LOG(ERR) << "Failed to snapshot: " << ret.error();
+//        syscall_exit(-1);
+//      } else {
+//        LOG(INFO) << "snapshot successful!";
+//      }
     });
   }
 
