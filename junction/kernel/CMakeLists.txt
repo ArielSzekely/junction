@@ -36,5 +36,5 @@ target_link_libraries(kernel PUBLIC
   base
   bindings
   control
-  snapshot
+#  snapshot
 )
