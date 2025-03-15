@@ -7,7 +7,7 @@
 #include "junction/control/ctl_conn.h"
 #include "junction/kernel/proc.h"
 #include "junction/run.h"
-#include "junction/snapshot/snapshot.h"
+//#include "junction/snapshot/snapshot.h"
 
 namespace junction {
 
@@ -60,55 +60,55 @@ bool HandleRun(ControlConn &c, const ctl_schema::RunRequest *req) {
 
   return false;
 }
-bool HandleSnapshot(ControlConn &c, const ctl_schema::SnapshotRequest *req) {
-  LOG(INFO) << "handling snapshot request";
-  auto ret = SnapshotPid(req->pid(), req->snapshot_path()->string_view(),
-                         req->elf_path()->string_view());
-  if (!ret) {
-    std::ostringstream error_msg;
-    error_msg << "failed to snapshot(pid=" << req->pid()
-              << ", snapshot_path=" << req->snapshot_path()->string_view()
-              << ", elf_path=" << req->elf_path()->string_view()
-              << "): " << ret.error();
-    if (!c.SendError(error_msg.str())) {
-      LOG(WARN) << "ctl: failed to send error: " << error_msg.str();
-      return true;
-    }
-    return false;
-  }
-
-  if (!c.SendSuccess()) {
-    LOG(WARN) << "ctl: failed to send success";
-    return true;
-  }
-
-  return false;
-}
-bool HandleRestore(ControlConn &c, const ctl_schema::RestoreRequest *req) {
-  LOG(INFO) << "handling restore request";
-  Status<std::shared_ptr<Process>> proc = RestoreProcess(
-      req->snapshot_path()->string_view(), req->elf_path()->string_view());
-
-  if (!proc) {
-    std::ostringstream error_msg;
-    error_msg << "failed to restore(snapshot_path="
-              << req->snapshot_path()->string_view()
-              << ", elf_path=" << req->elf_path()->string_view() << ") "
-              << proc.error();
-    if (!c.SendError(error_msg.str())) {
-      LOG(WARN) << "ctl: failed to send error: " << error_msg.str();
-      return true;
-    }
-    return false;
-  }
-
-  if (!c.SendSuccess()) {
-    LOG(WARN) << "ctl: failed to send success";
-    return true;
-  }
-
-  return false;
-}
+//bool HandleSnapshot(ControlConn &c, const ctl_schema::SnapshotRequest *req) {
+//  LOG(INFO) << "handling snapshot request";
+//  auto ret = SnapshotPid(req->pid(), req->snapshot_path()->string_view(),
+//                         req->elf_path()->string_view());
+//  if (!ret) {
+//    std::ostringstream error_msg;
+//    error_msg << "failed to snapshot(pid=" << req->pid()
+//              << ", snapshot_path=" << req->snapshot_path()->string_view()
+//              << ", elf_path=" << req->elf_path()->string_view()
+//              << "): " << ret.error();
+//    if (!c.SendError(error_msg.str())) {
+//      LOG(WARN) << "ctl: failed to send error: " << error_msg.str();
+//      return true;
+//    }
+//    return false;
+//  }
+//
+//  if (!c.SendSuccess()) {
+//    LOG(WARN) << "ctl: failed to send success";
+//    return true;
+//  }
+//
+//  return false;
+//}
+//bool HandleRestore(ControlConn &c, const ctl_schema::RestoreRequest *req) {
+//  LOG(INFO) << "handling restore request";
+//  Status<std::shared_ptr<Process>> proc = RestoreProcess(
+//      req->snapshot_path()->string_view(), req->elf_path()->string_view());
+//
+//  if (!proc) {
+//    std::ostringstream error_msg;
+//    error_msg << "failed to restore(snapshot_path="
+//              << req->snapshot_path()->string_view()
+//              << ", elf_path=" << req->elf_path()->string_view() << ") "
+//              << proc.error();
+//    if (!c.SendError(error_msg.str())) {
+//      LOG(WARN) << "ctl: failed to send error: " << error_msg.str();
+//      return true;
+//    }
+//    return false;
+//  }
+//
+//  if (!c.SendSuccess()) {
+//    LOG(WARN) << "ctl: failed to send success";
+//    return true;
+//  }
+//
+//  return false;
+//}
 bool HandleStartTrace(ControlConn &c,
                       const ctl_schema::StartTraceRequest *req) {
   LOG(INFO) << "handling start trace request";
@@ -220,10 +220,10 @@ bool HandleRequest(ControlConn &c, const ctl_schema::Request *req) {
   switch (req->inner_type()) {
     case ctl_schema::InnerRequest_run:
       return HandleRun(c, req->inner_as_run());
-    case ctl_schema::InnerRequest_snapshot:
-      return HandleSnapshot(c, req->inner_as_snapshot());
-    case ctl_schema::InnerRequest_restore:
-      return HandleRestore(c, req->inner_as_restore());
+//    case ctl_schema::InnerRequest_snapshot:
+//      return HandleSnapshot(c, req->inner_as_snapshot());
+//    case ctl_schema::InnerRequest_restore:
+//      return HandleRestore(c, req->inner_as_restore());
     case ctl_schema::InnerRequest_startTrace:
       return HandleStartTrace(c, req->inner_as_startTrace());
     case ctl_schema::InnerRequest_stopTrace:
