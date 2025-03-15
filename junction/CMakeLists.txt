@@ -142,7 +142,7 @@ add_subdirectory(kernel)
 add_subdirectory(net)
 add_subdirectory(samples)
 add_subdirectory(shim)
-add_subdirectory(snapshot)
+#add_subdirectory(snapshot)
 add_subdirectory(syscall)
 
 # Build junction
