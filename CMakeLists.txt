@@ -31,7 +31,7 @@ set(CMAKE_CXX_FLAGS_RELEASE "-DNDEBUG -O3 -flto=auto -ffast-math -fconcepts-diag
 #    GIT_TAG v0.4 # Optionally specify a commit hash, version tag or branch here
 #)
 # Set any global configuration variables such as `Rust_TOOLCHAIN` before this line!
-FetchContent_MakeAvailable(Corrosion)
+#FetchContent_MakeAvailable(Corrosion)
 
 include_directories(
   ${CMAKE_SOURCE_DIR}
