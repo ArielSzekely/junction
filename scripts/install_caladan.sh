@@ -25,6 +25,6 @@ if [ "$prev" != "$cur" ] || [ ! -f $CALADAN_DIR/deps/pcm/build/src/libpcm.a ]; t
   make submodules
 fi
 
-(cd ksched && make -j `nproc`)
+#(cd ksched && make -j `nproc`)
 
 cat $CALADAN_PATCHES_DIR/* | sha256sum >  $CALADAN_DIR/../.caladan_installed_ver
